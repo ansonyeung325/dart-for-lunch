@@ -12,7 +12,8 @@ export default {
   data() {
     return {
       boardRadius: 300,
-      gameStart: false,
+      showLeaderBoard: true,
+      showForm: false,
     }
   },
   mounted() {
@@ -39,7 +40,8 @@ export default {
       }
     },
     onStart(): void {
-      this.gameStart = true
+      this.showLeaderBoard = false
+      setTimeout(() => (this.showForm = true), 500)
     },
   },
 }
@@ -53,11 +55,11 @@ export default {
         <Dartboard :boardRadius="boardRadius" />
       </div>
       <div class="leaderboard-warpper">
-        <Transition name="fade">
-          <Leaderboard v-if="!gameStart" @child-click="onStart" />
+        <Transition name="slide-fade">
+          <Leaderboard v-if="showLeaderBoard" @child-click="onStart" />
         </Transition>
-        <Transition name="fade">
-          <Form v-if="gameStart" />
+        <Transition name="slide-fade">
+          <Form v-if="showForm" />
         </Transition>
       </div>
     </div>
@@ -69,18 +71,22 @@ export default {
 @import url(@/styles/base.css);
 
 main {
-  height: 100%;
   width: 100%;
   display: flex;
   flex-direction: column;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
 }
-.fade-enter,
-.fade-leave-to {
+
+.slide-fade-leave-active {
+  transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
   opacity: 0;
 }
 
@@ -101,7 +107,7 @@ main {
 #container {
   height: 100%;
   display: flex;
-  padding: 20px;
+  padding: 20px 20px 20px 0;
 }
 
 .leaderboard-warpper {
@@ -118,7 +124,7 @@ main {
   align-items: center;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1080px) {
   #container {
     display: block;
     padding: 0;

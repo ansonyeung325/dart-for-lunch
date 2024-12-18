@@ -1,28 +1,20 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
-  --vt-c-white: #dcdcdc;
-  --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
-
-  --vt-c-black: #181818;
-  --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
-
-  --vt-c-indigo: #2c3e50;
-
-  --color-text: #363636;
-  --color-background: #e8eff6;
+  /* Color */
+  --color-text: rgba(0, 0, 0, 0.52);
+  --color-background: #cedaf3;
   --color-background-dark: #363636;
-  --color-container: white;
+  --color-container: #e6ecf9;
   --color-primary: #a7ecfa;
   --color-secondary: rgb(201, 180, 255);
   --color-primary-light: rgb(242, 242, 252);
   --color-hover: rgb(226, 226, 234);
   --color-disable: rgb(202, 202, 202);
+  --color-positive: rgb(125, 234, 192);
 
   /* Decoration */
-  --card-border-radius: 10px;
-  --button-border-radius: 4px;
+  --container-boxshadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
+  --container-light-boxshadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
 
   /* Font */
   --font-size-headline-5: 24pt;
@@ -49,10 +41,6 @@
   --sidemenu-width: 280px;
   --small-sidemenu-width: 120px;
   --header-height: 60px;
-
-  /* Breakpoint */
-  --breakpoint-mobile: 900px;
-  --max-breakpoint: 1710px;
 }
 
 *,

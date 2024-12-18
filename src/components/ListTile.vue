@@ -30,9 +30,9 @@ export default {
 .list-tile {
   display: flex;
   padding: 10px 20px;
-  border: 1px solid var(--color-disable);
-  border-radius: 20px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  /* border: 1px solid var(--color-disable); */
+  border-radius: 30px;
+  box-shadow: var(--container-light-boxshadow);
   transition: all 0.2s;
 }
 

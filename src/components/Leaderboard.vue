@@ -1,11 +1,13 @@
 <script lang="ts">
 import ListTile from '@/components/ListTile.vue'
 import moment from 'moment'
+import ActionButton from '@/components/ActionButton.vue'
 
 export default {
   name: 'Leaderboard',
   components: {
     ListTile,
+    ActionButton,
   },
   props: {},
   data() {
@@ -45,9 +47,7 @@ export default {
     </ul>
 
     <div class="action">
-      <button class="elevated-btn-wrapper" @click="$emit('child-click')">
-        <div class="elevated-btn-container">開始</div>
-      </button>
+      <ActionButton @click="$emit('child-click')" />
     </div>
   </div>
 </template>
@@ -57,12 +57,9 @@ export default {
 
 .leaderboard {
   padding: 20px 20px 40px 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: var(--color-container);
   border-radius: 30px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-shadow: var(--container-boxshadow);
 }
 
 .leaderboard-headline {
@@ -74,7 +71,7 @@ export default {
   display: flex;
   margin-bottom: 20px;
   flex-direction: column;
-  gap: 10px;
+  gap: 16px;
 }
 
 .list-header {
@@ -104,41 +101,9 @@ export default {
   align-items: center;
 }
 
-.elevated-btn-wrapper {
-  min-width: 200px;
-  background-color: var(--color-background);
-  padding: 2px;
-  border: none;
-  border-radius: 20px;
-  font-size: var(--font-size-subtitle-1);
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow:
-    rgba(0, 0, 0, 0.16) 0px 3px 6px,
-    rgba(0, 0, 0, 0.23) 0px 3px 6px;
-}
-
-.elevated-btn-container {
-  width: 100%;
-  height: 100%;
-  background-color: var(--color-background);
-  padding: 10px;
-  border: 1px solid var(--color-primary);
-  border-radius: 20px;
-  font-size: var(--font-size-subtitle-1);
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.elevated-btn-wrapper:hover {
-  scale: 1.04;
-}
-
-@media screen and (max-width: 900px) {
-  .leaderboard-warpper {
-    margin: 0 20px;
+@media screen and (max-width: 1080px) {
+  .leaderboard {
+    margin: 20px;
   }
 }
 </style>
