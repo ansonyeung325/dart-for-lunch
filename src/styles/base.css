@@ -3,7 +3,8 @@
   --color-text: rgba(0, 0, 0, 0.52);
   --color-background: #cedaf3;
   --color-background-dark: #363636;
-  --color-container: #e6ecf9;
+  /* --color-container: #e6ecf9; */
+  --color-container: white;
   --color-primary: #a7ecfa;
   --color-secondary: rgb(201, 180, 255);
   --color-primary-light: rgb(242, 242, 252);

@@ -56,15 +56,17 @@ export default {
 @import url('@/styles/font.css');
 
 .leaderboard {
-  padding: 20px 20px 40px 20px;
+  padding: 20px 30px 40px 30px;
   background: var(--color-container);
   border-radius: 30px;
   box-shadow: var(--container-boxshadow);
 }
 
 .leaderboard-headline {
+  padding-bottom: 10px;
   margin-bottom: 20px;
   text-align: center;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 
 .list {

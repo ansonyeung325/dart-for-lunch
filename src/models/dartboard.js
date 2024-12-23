@@ -19,11 +19,18 @@ export default class Dartboard {
     this.bullRadius = radius * 0.08
     this.doubleBullRadius = radius * 0.04
 
-    this.oddColor = 'rgb(62,78,159)'
-    this.evenColor = 'rgb(161,57,56)'
-    this.invlidColor = 'rgba(0, 0, 0, 0.6)'
-    this.oddBackground = 'white'
-    this.evenBackground = 'black'
+    this.black = 'rgba(0, 0, 0, 0.6)'
+    // Active
+    this.activeBlue = 'rgb(227,71,67)'
+    this.activeRed = 'rgb(136,133,229)'
+    this.activeLightBlue = 'rgb(241, 230, 247)'
+    this.activeLightRed = 'rgb(250, 249, 254)'
+
+    // Inactive
+    this.inactiveRed = 'rgb(222,73,79)'
+    this.inactiveLightRed = 'rgb(152,123,121)'
+    this.inactiveBlue = 'rgb(110,112,229)'
+    this.inactiveLightBlue = 'rgb(237,227,249)'
 
     this.scores = [6, 10, 15, 2, 17, 3, 19, 7, 16, 8, 11, 14, 9, 12, 5, 20, 1, 18, 4, 13]
     this.sections = []
@@ -35,7 +42,7 @@ export default class Dartboard {
   }
 
   async draw() {
-    console.log('Re-drawing canvas')
+    console.log('Drawing dartboard')
     this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight)
 
     // Draw the Dartboard
@@ -47,9 +54,9 @@ export default class Dartboard {
     let tempSections = []
 
     for (let i = 0; i <= 19; i++) {
-      this.#drawInvalidArea(this.invlidSectionRadius, i, this.invlidColor)
-      let bonusColor = i % 2 === 0 ? this.evenColor : this.oddColor
-      let singleColor = i % 2 === 0 ? this.evenBackground : this.oddBackground
+      this.#drawInvalidArea(this.invlidSectionRadius, i, this.black)
+      let bonusColor = i % 2 === 0 ? this.activeRed : this.activeBlue
+      let singleColor = i % 2 === 0 ? this.activeLightRed : this.activeLightBlue
 
       if (i != 0 && i % 4 == 0) {
         this.sections.push(tempSections)
@@ -119,7 +126,7 @@ export default class Dartboard {
       this.doubleBullRadius,
       this.x,
       this.y,
-      this.evenColor,
+      this.activeBlue,
       0,
       2 * Math.PI,
       25,
@@ -132,7 +139,7 @@ export default class Dartboard {
       0,
       this.x,
       this.y,
-      'black',
+      this.activeRed,
       0,
       2 * Math.PI,
       25,

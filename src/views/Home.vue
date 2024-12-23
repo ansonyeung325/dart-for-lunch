@@ -43,6 +43,10 @@ export default {
       this.showLeaderBoard = false
       setTimeout(() => (this.showForm = true), 500)
     },
+    onBackward(): void {
+      this.showForm = false
+      setTimeout(() => (this.showLeaderBoard = true), 500)
+    },
   },
 }
 </script>
@@ -59,7 +63,7 @@ export default {
           <Leaderboard v-if="showLeaderBoard" @child-click="onStart" />
         </Transition>
         <Transition name="slide-fade">
-          <Form v-if="showForm" />
+          <Form v-if="showForm" :onBackward="onBackward" />
         </Transition>
       </div>
     </div>
@@ -112,6 +116,7 @@ main {
 
 .leaderboard-warpper {
   flex: 1;
+  /* max-height: 200px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
