@@ -2,20 +2,21 @@
   /* Color */
   --color-text: rgba(0, 0, 0, 0.52);
   --color-background: #cedaf3;
-  --color-background-dark: #363636;
   /* --color-container: #e6ecf9; */
   --color-container: white;
   --color-primary: #a7ecfa;
-  --color-secondary: rgb(201, 180, 255);
-  --color-primary-light: rgb(242, 242, 252);
-  --color-hover: rgb(226, 226, 234);
+  /* --color-secondary: rgb(201, 180, 255); */
+  /* --color-primary-light: rgb(242, 242, 252); */
+  /* --color-hover: rgb(226, 226, 234); */
   --color-disable: rgb(202, 202, 202);
+  --color-active: #5d5d5d;
   --color-positive: rgb(125, 234, 192);
 
   /* Decoration */
   --container-boxshadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px, rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
     rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset;
   --container-light-boxshadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+  --container-inset-boxshadow: rgba(0, 0, 0, 0.06) 0px 2px 8px 0px inset;
 
   /* Font */
   --font-size-headline-5: 24pt;
@@ -37,11 +38,6 @@
   --font-weight-caption: normal;
   --font-weight-button: 500;
   --font-weight-overline: normal;
-
-  /* Size */
-  --sidemenu-width: 280px;
-  --small-sidemenu-width: 120px;
-  --header-height: 60px;
 }
 
 *,
@@ -53,6 +49,8 @@
 }
 
 body {
+  display: flex;
+  justify-content: center;
   min-height: 100vh;
   color: var(--color-text);
   background: var(--color-background);
@@ -82,6 +80,7 @@ body {
 #app {
   height: 100vh;
   width: 100%;
+  max-width: 2000px;
 }
 
 ul {

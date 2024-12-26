@@ -7,8 +7,8 @@ export default class Dartboard {
     this.ctx = ctx
     this.canvasWidth = x
     this.canvasHeight = y
-    this.x = x / 2
-    this.y = y / 2
+    this.x = x
+    this.y = y
     this.maxRadius = radius
 
     this.invlidSectionRadius = radius * 0.86

@@ -3,10 +3,7 @@ import Dartboard from '@/models/dartboard.js'
 
 export default {
   name: 'Dartboard',
-  props: {
-    padding: { type: Number, default: 40 },
-    boardRadius: { type: Number, default: 300 },
-  },
+  props: {},
   data() {
     return {}
   },
@@ -14,8 +11,7 @@ export default {
     this.initialCanvas()
   },
   watch: {
-    boardRadius(newValue, oldValue) {
-      console.log(`old: ${oldValue}, new: ${newValue}`)
+    rebuildFlag() {
       this.initialCanvas()
     },
   },
@@ -24,19 +20,24 @@ export default {
       let canvas = document.getElementById('canvas')
       let ctx = canvas.getContext('2d')
 
-      let padding = this.padding
-      let maxRadius = this.boardRadius
-      let boardHeight = padding + maxRadius * 2
-      let boardWidth = padding + maxRadius * 2
+      // Set canvas resolution
+      let padding = 40
+      canvas.width = canvas.clientWidth
+      canvas.height = canvas.clientHeight
+      let centerX = canvas.width / 2
+      let centerY = canvas.height / 2
+      let maxRadius = (Math.min(canvas.width, canvas.height) - padding) / 2
 
-      canvas.width = boardWidth
-      canvas.height = boardHeight
+      // let boardHeight = padding + maxRadius * 2
+      // let boardWidth = padding + maxRadius * 2
 
       // let lightness = 43
       // let increment = 1
+      console.log(
+        `Canvas details:\n{ clientWidth: ${canvas.clientWidth}, clientHeight: ${canvas.clientHeight}, maxRadius: ${maxRadius}, resolution: ${canvas.width}:${canvas.height} }`,
+      )
 
-      console.log(`Canvas details: width: ${canvas.width} height: ${canvas.height}`)
-      let dartBoard = new Dartboard(ctx, boardWidth, boardHeight, maxRadius)
+      let dartBoard = new Dartboard(ctx, centerX, centerY, maxRadius)
       dartBoard.draw()
       // canvas.addEventListener('mousemove', (event) => {
       //   console.log(`Mouse moved`)
@@ -61,4 +62,9 @@ export default {
 </template>
 <style scoped>
 @import url('@/styles/base.css');
+
+#canvas {
+  width: 100%;
+  height: 100%;
+}
 </style>

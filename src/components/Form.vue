@@ -1,7 +1,8 @@
 <script lang="ts">
 import Chip from '@/components/Chip.vue'
 import type { Dish } from '@/models/dish'
-// import dotenv from 'dotenv'
+import type { FormData } from '@/models/componentData'
+
 export default {
   name: 'Form',
   components: {
@@ -12,19 +13,39 @@ export default {
       type: void Function,
     },
   },
-  data() {
+  data(): FormData {
     return {
-      dishes: [] as Dish[],
+      dishes: [],
+      selected: new Set<Dish>(),
+      gamemode: null,
+      isTyping: false,
+      inputValue: '',
     }
   },
   mounted() {
     this.getSuggestDish()
   },
   methods: {
-    async getSuggestDish() {
+    async getSuggestDish(): Promise<void> {
+      // "/api" here is using vite.config server proxy setting
       let response = await fetch(`/api/record`)
       let json: Object[] = await response.json()
       this.dishes = this.dishes.concat(json.map((data) => data as Dish))
+    },
+    selectDish(dish: Dish) {
+      let beforeSize = this.selected.size
+      this.selected.add(dish)
+      if (this.selected.size == beforeSize) {
+        this.selected.delete(dish)
+      }
+    },
+    onEnterKeydown(event: KeyboardEvent) {
+      if (event.key == 'Enter' && this.isTyping) {
+        console.log(`New dish: ${this.inputValue}`)
+        if (this.inputValue.length > 0) {
+        }
+        return
+      }
     },
   },
 }
@@ -39,15 +60,35 @@ export default {
     <div class="form-body">
       <div class="subtitle1 section-title">Game mode</div>
       <div class="gamemode-section">
-        <button class="mode-btn body2">掉 1 支</button>
-        <button class="mode-btn body2">掉 3 支</button>
+        <button @click="gamemode = 1" class="mode-btn body2" :class="{ active: gamemode == 1 }">
+          掉 1 支
+        </button>
+        <button @click="gamemode = 2" class="mode-btn body2" :class="{ active: gamemode == 2 }">
+          掉 3 支
+        </button>
       </div>
 
       <div class="subtitle1 section-title">Dish</div>
       <div class="dishes-section">
-        <input class="dish-input body2" placeholder="輸入你想食既野" />
+        <div class="input-wrapper">
+          <input
+            class="dish-input body2"
+            placeholder="輸入你想食既野"
+            v-model="inputValue"
+            @keydown="onEnterKeydown"
+            @focus="isTyping = true"
+            @blur="isTyping = false"
+          />
+          <font-awesome-icon icon="arrow-right" class="suffix" />
+        </div>
         <div class="chips">
-          <Chip v-for="dish of dishes" :name="dish.name" />
+          <Chip
+            v-for="dish of dishes"
+            :key="dish.id"
+            :name="dish.name"
+            :selected="selected.has(dish)"
+            @child-click="selectDish(dish)"
+          />
         </div>
       </div>
     </div>
@@ -131,12 +172,36 @@ export default {
   scale: 1.04;
 }
 
+.input-wrapper {
+  position: relative;
+}
+
+.suffix {
+  position: absolute;
+  padding: 10px;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.suffix:hover {
+  color: var(--color-primary);
+}
+
 .dish-input {
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 30px 10px 20px;
   border-radius: 20px;
   border: none;
-  box-shadow: rgba(0, 0, 0, 0.06) 0px 2px 8px 0px inset;
+  box-shadow: var(--container-inset-boxshadow);
+}
+
+.active {
+  color: white;
+  box-shadow: var(--container-inset-boxshadow);
+  background-color: var(--color-active);
 }
 
 .dish-input:focus {

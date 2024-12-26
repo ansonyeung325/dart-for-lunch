@@ -2,6 +2,7 @@
 import Dartboard from '@/components/Dartboard.vue'
 import Form from '@/components/Form.vue'
 import Leaderboard from '@/components/Leaderboard.vue'
+import type { HomeData } from '@/models/componentData'
 
 export default {
   components: {
@@ -9,9 +10,13 @@ export default {
     Leaderboard,
     Form,
   },
-  data() {
+  data(): HomeData {
     return {
-      boardRadius: 300,
+      rebuildKey: 0,
+      canvasSize: {
+        height: 300,
+        width: 300,
+      },
       showLeaderBoard: true,
       showForm: false,
     }
@@ -24,20 +29,10 @@ export default {
   },
   methods: {
     resizeDartBoard(): void {
-      const windowWidth: number = window.innerWidth
       // Minus the padding of container and padding inside the canvas
-      let newBoardRadius: number
-      if (windowWidth <= 900) {
-        newBoardRadius = Math.floor(windowWidth - 40 - 40)
-        this.boardRadius = newBoardRadius / 2
-        return
-      } else {
-        newBoardRadius = Math.floor((windowWidth - 40) / 4 - 40)
-        if (newBoardRadius <= 220 || newBoardRadius >= 300) {
-          return
-        }
-        this.boardRadius = newBoardRadius
-      }
+      this.canvasSize.height = window.innerHeight
+      this.canvasSize.width = window.innerWidth
+      this.rebuildKey += 1
     },
     onStart(): void {
       this.showLeaderBoard = false
@@ -56,9 +51,9 @@ export default {
     <div class="brand header">DartForLunch</div>
     <div id="container">
       <div class="canvas-container">
-        <Dartboard :boardRadius="boardRadius" />
+        <Dartboard :key="rebuildKey" />
       </div>
-      <div class="leaderboard-warpper">
+      <div class="leaderboard-warpper" ref="leaderboard">
         <Transition name="slide-fade">
           <Leaderboard v-if="showLeaderBoard" @child-click="onStart" />
         </Transition>
@@ -109,14 +104,12 @@ main {
 }
 
 #container {
-  height: 100%;
   display: flex;
-  padding: 20px 20px 20px 0;
+  padding: 20px;
 }
 
 .leaderboard-warpper {
   flex: 1;
-  /* max-height: 200px; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -124,9 +117,6 @@ main {
 
 .canvas-container {
   flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 @media screen and (max-width: 1080px) {

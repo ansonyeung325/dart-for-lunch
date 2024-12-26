@@ -5,6 +5,10 @@ export default {
     name: {
       type: String,
     },
+    selected: {
+      type: Boolean,
+      required: true,
+    },
   },
   data() {
     return {}
@@ -12,8 +16,11 @@ export default {
 }
 </script>
 <template>
-  <div class="chip body2">
-    <div>{{ name }}</div>
+  <div class="chip body2" @click="$emit('child-click')">
+    <div>
+      {{ name }}
+      <font-awesome-icon icon="check" v-if="selected" />
+    </div>
   </div>
 </template>
 <style>
@@ -26,9 +33,13 @@ export default {
 }
 
 .chip div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   padding: 6px 20px;
   border-radius: 30px;
   border: 2px solid var(--color-primary);
+  transition: all 0.2s;
 }
 
 .chip:hover {

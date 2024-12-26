@@ -5,9 +5,9 @@ import App from './App.vue'
 import router from './router'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faArrowLeft)
+library.add(faArrowLeft, faArrowRight, faCheck)
 // dotenv.config()
 const app = createApp(App)
 
