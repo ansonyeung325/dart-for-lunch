@@ -10,12 +10,13 @@ export interface FormData {
 
 export interface HomeData {
   rebuildKey: number
-  canvasSize: CanvasSize
+  canvasSize: Size
   showLeaderBoard: boolean
   showForm: boolean
+  started: boolean
 }
 
-export interface CanvasSize {
+export interface Size {
   height?: number
   width?: number
 }

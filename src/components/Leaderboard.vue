@@ -1,7 +1,6 @@
 <script lang="ts">
-import ListTile from '@/components/ListTile.vue'
-import moment from 'moment'
-import ActionButton from '@/components/ActionButton.vue'
+import ListTile from '@/components/ui/ListTile.vue'
+import ActionButton from '@/components/ui/ActionButton.vue'
 
 export default {
   name: 'Leaderboard',
@@ -12,50 +11,41 @@ export default {
   props: {},
   data() {
     return {
-      list: [
-        { title: '西式', lastEatDate: moment().format('YYYY-MM-DD'), twoInARow: 2, count: 5 },
-        { title: '中式', lastEatDate: moment().format('YYYY-MM-DD'), twoInARow: 2, count: 2 },
-        { title: '韓式', lastEatDate: moment().format('YYYY-MM-DD'), twoInARow: 2, count: 4 },
-        { title: '日式', lastEatDate: moment().format('YYYY-MM-DD'), twoInARow: 2, count: 8 },
-        { title: '米線', lastEatDate: moment().format('YYYY-MM-DD'), twoInARow: 2, count: 2 },
-      ],
+      list: [],
     }
   },
-  mounted() {},
+  mounted() {
+
+  },
+  methods: {
+    async getRecord(): Promise<void> {
+      let res = await fetch(`/api/record/ranking`);
+      let json: [] = await res.json();
+      this.list = this.list.concat(json);
+    }
+  },
 }
 </script>
 <template>
-  <div class="leaderboard">
-    <div class="headline6 leaderboard-headline">排行榜</div>
-
-    <ul class="list">
-      <div class="list-header">
-        <div class="col-s subtitle1">排名</div>
-        <div class="col-s subtitle1">菜式</div>
-        <div class="col-l subtitle1">上次食日期</div>
-        <div class="col-s subtitle1">連食次數</div>
-        <div class="col-s subtitle1">次數</div>
-      </div>
-      <ListTile
-        v-for="(item, index) in list"
-        :title="item.title"
-        :count="item.count"
-        :twoInARow="item.twoInARow"
-        :lastEatDate="item.lastEatDate"
-        :ranking="index"
-      />
-    </ul>
-
-    <div class="action">
-      <ActionButton @click="$emit('child-click')" />
+  <ul class="list">
+    <div class="list-header">
+      <div class="col-s subtitle1">排名</div>
+      <div class="col-s subtitle1">菜式</div>
+      <div class="col-l subtitle1">上次食日期</div>
+      <div class="col-s subtitle1">連食次數</div>
+      <div class="col-s subtitle1">次數</div>
     </div>
-  </div>
+    <!-- <ListTile v-for="(item, index) in list" :title="item.title" :count="item.count" :twoInARow="item.twoInARow"
+        :lastEatDate="item.lastEatDate" :ranking="index" /> -->
+  </ul>
 </template>
 <style scoped>
 @import url('@/styles/base.css');
 @import url('@/styles/font.css');
 
 .leaderboard {
+  display: flex;
+  flex-direction: column;
   padding: 20px 30px 40px 30px;
   background: var(--color-container);
   border-radius: 30px;
@@ -78,7 +68,7 @@ export default {
 
 .list-header {
   display: flex;
-  padding: 10px 20px;
+  padding: 10px 0;
 }
 
 .col-s {
@@ -96,12 +86,13 @@ export default {
   text-align: center;
 }
 
-.action {
+/* .action {
   width: 100%;
+  margin-top: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
 @media screen and (max-width: 1080px) {
   .leaderboard {
