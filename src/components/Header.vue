@@ -1,5 +1,5 @@
 <script lang="ts">
-import IconButton from './ui/IconButton.vue';
+import IconButton from '@/components/ui/IconButton.vue';
 
 
 export default {

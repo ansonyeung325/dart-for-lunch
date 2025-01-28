@@ -17,12 +17,16 @@ export default {
 </script>
 <template>
   <div class="chip body2" :class="{ active: selected }" @click="$emit('child-click')">
-    {{ name }}
-    <!-- <font-awesome-icon icon="check" v-if="selected" /> -->
+    <div>{{ name }}</div>
+    <font-awesome-icon icon="check" v-if="selected" />
+    <font-awesome-icon icon="minus" v-else />
   </div>
 </template>
-<style>
+<style scoped>
 .chip {
+  display: flex;
+  gap: 10px;
+  align-items: center;
   height: fit-content;
   flex-grow: 0;
   flex-shrink: 0;
@@ -44,5 +48,9 @@ export default {
   color: white;
   box-shadow: var(--container-inset-boxshadow);
   background-color: var(--color-active);
+}
+
+.sizebox {
+  width: 16px;
 }
 </style>

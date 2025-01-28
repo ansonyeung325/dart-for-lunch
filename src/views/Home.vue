@@ -1,22 +1,22 @@
 <script lang="ts">
 import Dartboard from '@/components/Dartboard.vue'
-import Form from '@/components/Form.vue'
 import Header from '@/components/Header.vue';
-import Leaderboard from '@/components/Leaderboard.vue'
+import Leaderboard from '@/views/Leaderboard.vue'
+import Menu from '@/views/Menu.vue';
 import ActionButton from '@/components/ui/ActionButton.vue';
 import Dialog from '@/components/ui/Dialog.vue'
 import IconButton from '@/components/ui/IconButton.vue';
-import type { HomeData } from '@/models/componentData'
+import type { HomeData } from '@/models/interface'
 
 export default {
   components: {
     Dartboard,
     Leaderboard,
-    Form,
     Header,
     Dialog,
     IconButton,
-    ActionButton
+    ActionButton,
+    Menu
   },
   data(): HomeData {
     return {
@@ -57,20 +57,7 @@ export default {
     <div id="container">
 
       <Transition name="slide-fade">
-        <!-- <div class="blur-overlay" v-if="!started">
-          <button class="start-btn" @click="onStart()">開始</button>
-        </div> -->
-        <Dialog v-if="showForm">
-          <template #title>
-            <div class="leaderboard-header">
-              <div class="headline6">設定</div>
-              <!-- <IconButton class="closeBtn" :icon="'xmark'" @click="showLeaderBoard = false;" /> -->
-            </div>
-          </template>
-          <template #body>
-            <Form />
-          </template>
-        </Dialog>
+        <Menu v-if="showForm" />
       </Transition>
 
       <Transition name="slide-fade">
@@ -90,14 +77,6 @@ export default {
       <div class="canvas-container">
         <Dartboard :key="rebuildKey" />
       </div>
-      <!-- <div class="leaderboard-warpper"> -->
-      <!-- <Transition name="slide-fade">
-          <Leaderboard v-if="showLeaderBoard" @child-click="onStart" />
-        </Transition>
-        <Transition name="slide-fade">
-          <Form v-if="showForm" :onBackward="onBackward" />
-        </Transition> -->
-      <!-- </div> -->
     </div>
   </main>
 </template>
@@ -135,13 +114,6 @@ main {
 
 .canvas-container {
   flex: 1;
-}
-
-.leaderboard-header {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  position: relative;
 }
 
 .closeBtn {
