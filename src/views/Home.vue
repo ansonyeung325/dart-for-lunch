@@ -7,6 +7,8 @@ import ActionButton from '@/components/ui/ActionButton.vue';
 import Dialog from '@/components/ui/Dialog.vue'
 import IconButton from '@/components/ui/IconButton.vue';
 import type { HomeData } from '@/models/interface'
+import Loader from '@/components/Loader.vue';
+import { globalStore } from '@/store/store.ts';
 
 export default {
   components: {
@@ -16,7 +18,8 @@ export default {
     Dialog,
     IconButton,
     ActionButton,
-    Menu
+    Menu,
+    Loader
   },
   data(): HomeData {
     return {
@@ -28,6 +31,7 @@ export default {
       showLeaderBoard: false,
       showForm: true,
       started: false,
+      globalStore: globalStore
     }
   },
   mounted() {
@@ -43,21 +47,24 @@ export default {
       this.canvasSize.width = window.innerWidth
       this.rebuildKey += 1
     },
-    // onStart(): void {
-    //   this.started = true;
-    //   setTimeout(() => (this.showForm = true), 500)
-    // },
+    onStart(): void {
+      this.started = true;
+      this.showForm = false;
+    },
+    onOpenLeaderboard() {
+      this.showLeaderBoard = !this.showLeaderBoard;
+    }
   },
 }
 </script>
 
 <template>
   <main>
-    <Header :onOpenLeaderboard="() => { showLeaderBoard = !showLeaderBoard; }" />
+    <Header :onOpenLeaderboard="onOpenLeaderboard" />
     <div id="container">
 
       <Transition name="slide-fade">
-        <Menu v-if="showForm" />
+        <Menu v-if="showForm" :onStart="onStart" />
       </Transition>
 
       <Transition name="slide-fade">
@@ -113,7 +120,8 @@ main {
 }
 
 .canvas-container {
-  flex: 1;
+  height: 100%;
+  width: 100%;
 }
 
 .closeBtn {

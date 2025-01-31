@@ -1,3 +1,6 @@
+import type { GlobalStore } from '@/models/interface'
 import { reactive } from 'vue'
 
-export const store = reactive({})
+export const globalStore = reactive<GlobalStore>({
+  showLoading: false,
+})

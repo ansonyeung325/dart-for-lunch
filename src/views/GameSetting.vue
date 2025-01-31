@@ -4,6 +4,7 @@ import type { GameSettingData, MenuStateStore, Dish, GameMode } from '@/models/i
 import ActionButton from '@/components/ui/ActionButton.vue'
 import IconButton from '@/components/ui/IconButton.vue';
 import { MenuPage } from '@/models/enum';
+import { globalStore } from '@/store/store';
 import type { PropType } from 'vue';
 
 
@@ -31,9 +32,11 @@ export default {
         }
     },
     mounted() {
+        globalStore.showLoading = true;
         this.getSuggestDish()
         this.getGamemodes()
         this.getMenuStateStoreValue();
+        globalStore.showLoading = false;
     },
     methods: {
         isSelected(target: String): boolean {

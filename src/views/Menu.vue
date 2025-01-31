@@ -17,6 +17,12 @@ export default {
         ActionButton,
         IconButton
     },
+    props: {
+        onStart: {
+            type: Function,
+            requried: true,
+        }
+    },
     data() {
         return {
             stateStore: {
@@ -52,7 +58,7 @@ export default {
         </template>
         <template #body>
             <div v-if="stateStore.currentPage == stateStore.currentPageEnum.game" class="view-wrapper">
-                <Game :stateStore="stateStore" />
+                <Game :stateStore="stateStore" :onStart="onStart!" />
             </div>
             <div v-else class="view-wrapper">
                 <GameSetting :stateStore="stateStore" />

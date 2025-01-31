@@ -13,6 +13,10 @@ export default {
     IconButton
   },
   props: {
+    onStart: {
+      type: Function,
+      required: true,
+    },
     stateStore: {
       type: Object as PropType<MenuStateStore>,
       required: true,
@@ -20,12 +24,6 @@ export default {
   },
   data() {
     return {
-    }
-  },
-  methods: {
-    async onStart(): Promise<void> {
-      console.log(`[Game] start: ${JSON.stringify(this.stateStore.selectedDishes)}`)
-
     }
   },
   computed: {
@@ -54,8 +52,8 @@ export default {
     </div>
   </div>
   <div class="action">
-    <ActionButton :title="'開始'" @click="onStart" />
-    <ActionButton :title="'遊戲規則'" @click="stateStore.currentPage = stateStore.currentPageEnum.setting"
+    <ActionButton :title="'開始'" @click="onStart()" />
+    <ActionButton :title="'遊戲設定'" @click="stateStore.currentPage = stateStore.currentPageEnum.setting"
       :positive="false" />
   </div>
 </template>

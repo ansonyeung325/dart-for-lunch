@@ -15,6 +15,7 @@ export interface HomeData {
   showLeaderBoard: boolean
   showForm: boolean
   started: boolean
+  globalStore: GlobalStore
 }
 
 export interface Size {
@@ -40,4 +41,8 @@ export interface GameMode {
   id: String
   name: String
   createdAt?: Date
+}
+
+export interface GlobalStore {
+  showLoading: boolean
 }
